@@ -1,16 +1,15 @@
 import edu.princeton.cs.algs4.StdRandom;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
-    private ArrayList<Item> items;
+    private Object[] items;
     private int size = 0;
 
     // construct an empty randomized queue
     public RandomizedQueue() {
-        items = new ArrayList<Item>(1);
+        items = new Object[1];
     }
 
     // is the queue empty?
@@ -28,15 +27,20 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (item == null) {
             throw new NullPointerException();
         }
-        if (size == items.size()) {
-            resize(items.size() * 2);
+        if (size == items.length) {
+            resize(items.length * 2);
         }
-        items.add(item);
         size++;
+        items[size - 1] = item;
     }
 
     private void resize(int capacity) {
-        items.ensureCapacity(capacity);
+        if (capacity == 0) {
+            capacity = 1;
+        }
+        Object[] copy = new Object[capacity];
+        System.arraycopy(items, 0, copy, 0, items.length);
+        items = copy;
     }
 
     // remove and return a random item
@@ -45,14 +49,15 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             throw new NoSuchElementException();
         }
         int idx = StdRandom.uniform(size);
-        Item item = items.get(idx);
-        items.set(idx, items.get(size - 1)); // fill caused gap
+        @SuppressWarnings("unchecked")
+        Item item = (Item) items[idx];
+        items[idx] = items[size - 1]; // fill caused gap
         if (size > 0) {
-            items.set(size - 1, null);
+            items[size - 1] = null;
         }
         size--;
-        if (size > 0 && size < items.size() / 4) {
-            resize(items.size() / 2);
+        if (size > 0 && size < items.length / 4) {
+            resize(items.length / 2);
         }
         return item;
     }
@@ -63,7 +68,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             throw new NoSuchElementException();
         }
         int idx = StdRandom.uniform(size);
-        return items.get(idx);
+        @SuppressWarnings("unchecked")
+        Item item=(Item) items[idx];
+        return item;
     }
 
     // return an independent iterator over items in random order
@@ -98,7 +105,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             if (n == -1) {
                 throw new NoSuchElementException();
             }
-            Item item = items.get(order[n]);
+            @SuppressWarnings("unchecked")
+            Item item = (Item) items[order[n]];
             n--;
             return item;
         }

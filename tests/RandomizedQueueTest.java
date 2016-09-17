@@ -51,6 +51,22 @@ public class RandomizedQueueTest {
     }
 
     @Test
+    public void SampleShouldNotReturnNulls() throws Exception {
+        RandomizedQueue<Integer> queue = new RandomizedQueue<Integer>();
+
+        for (int i = 0; i <= 10; i++) {
+            queue.enqueue(i);
+        }
+
+        for (int i = 0; i < 10; i++) {
+            queue.dequeue();
+            Integer sampled = queue.sample();
+            assertTrue(sampled != null);
+            queue.enqueue(i);
+        }
+    }
+
+    @Test
     public void throwNPEOnInsertNull() throws Exception {
         thrown.expect(NullPointerException.class);
         RandomizedQueue<Integer> queue = new RandomizedQueue<Integer>();
