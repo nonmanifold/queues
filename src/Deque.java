@@ -5,9 +5,9 @@ public class Deque<Item> implements Iterable<Item> {
     private int size = 0;
 
     private class Node {
-        Node next;
-        Node previous;
-        Item item;
+        private Node next;
+        private Node previous;
+        private Item item;
     }
 
     private Node first;
@@ -72,7 +72,7 @@ public class Deque<Item> implements Iterable<Item> {
         if (isEmpty()) {
             last = null;
         } else {
-            first.next = null;
+            first.previous = null;
         }
         return item;
     }
@@ -112,7 +112,7 @@ public class Deque<Item> implements Iterable<Item> {
 
         @Override
         public Item next() {
-            if (isEmpty()) {
+            if (current == null) {
                 throw new NoSuchElementException();
             }
             Item item = current.item;
