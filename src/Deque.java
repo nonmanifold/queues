@@ -32,6 +32,15 @@ public class Deque<Item> implements Iterable<Item> {
         if (item == null) {
             throw new NullPointerException();
         }
+        Node oldFirst = first;
+        first = new Node();
+        first.item = item;
+        first.next = oldFirst;
+        if (isEmpty()) {
+            first = last;
+        } else {
+            oldFirst.previous = first;
+        }
         size++;
     }
 
@@ -39,6 +48,15 @@ public class Deque<Item> implements Iterable<Item> {
     public void addLast(Item item) {
         if (item == null) {
             throw new NullPointerException();
+        }
+        Node oldLast = last;
+        last = new Node();
+        last.item = item;
+        last.previous = oldLast;
+        if (isEmpty()) {
+            last = first;
+        } else {
+            oldLast.next = last;
         }
         size++;
     }
@@ -48,8 +66,14 @@ public class Deque<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
+        Item item = first.item;
+        first = first.next;
+        first.previous = null;
         size--;
-        return null;
+        if(isEmpty()){
+            first=last;
+        }
+        return item;
     }
 
     // remove and return the item from the end
@@ -57,8 +81,14 @@ public class Deque<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
+        Item item = last.item;
+        last = last.previous;
+        last.next = null;
         size--;
-        return null;
+        if (isEmpty()) {
+            first = null;
+        }
+        return item;
     }
 
     // return an iterator over items in order from front to end
