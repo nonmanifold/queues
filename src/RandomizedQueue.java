@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
     private ArrayList<Item> items;
-    private int N = 0;
+    private int size = 0;
 
     // construct an empty randomized queue
     public RandomizedQueue() {
@@ -15,12 +15,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // is the queue empty?
     public boolean isEmpty() {
-        return N == 0;
+        return size == 0;
     }
 
     // return the number of items on the queue
     public int size() {
-        return N;
+        return size;
     }
 
     // add the item
@@ -28,11 +28,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (item == null) {
             throw new NullPointerException();
         }
-        if (N == items.size()) {
+        if (size == items.size()) {
             resize(items.size() * 2);
         }
         items.add(item);
-        N++;
+        size++;
     }
 
     private void resize(int capacity) {
@@ -44,10 +44,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
-        int idx = StdRandom.uniform(N);
+        int idx = StdRandom.uniform(size);
         Item item = items.get(idx);
         items.set(idx, items.get(0)); // fill caused gap
-        N--;
+        size--;
         return item;
     }
 
@@ -56,7 +56,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
-        int idx = StdRandom.uniform(N);
+        int idx = StdRandom.uniform(size);
         return items.get(idx);
     }
 
@@ -74,8 +74,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         private int n = -1;
 
         public RandomizedQueueIterator() {
-            order = new int[N];
-            for (int i = 0; i < N; i++) {
+            order = new int[size];
+            for (int i = 0; i < size; i++) {
                 order[i] = i;
                 n++;
             }
