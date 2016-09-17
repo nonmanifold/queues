@@ -68,10 +68,11 @@ public class Deque<Item> implements Iterable<Item> {
         }
         Item item = first.item;
         first = first.next;
-        first.previous = null;
         size--;
         if (isEmpty()) {
-            first = last;
+            last = null;
+        }else{
+            first.next = null;
         }
         return item;
     }
@@ -83,20 +84,42 @@ public class Deque<Item> implements Iterable<Item> {
         }
         Item item = last.item;
         last = last.previous;
-        last.next = null;
         size--;
         if (isEmpty()) {
             first = null;
+        }else{
+            last.next = null;
         }
         return item;
     }
 
     // return an iterator over items in order from front to end
     public Iterator<Item> iterator() {
-        return null;
+        return new DequeIterator<Item>();
     }
 
     // unit testing
     public static void main(String[] args) {
+    }
+
+    private class DequeIterator<Item> implements Iterator<Item> {
+
+        @Override
+        public boolean hasNext() {
+            return isEmpty();
+        }
+
+        @Override
+        public Item next() {
+            if (isEmpty()) {
+                throw new NoSuchElementException();
+            }
+            return null;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
     }
 }

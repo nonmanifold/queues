@@ -23,9 +23,14 @@ public class DequeTest {
         assertEquals("removed element should be the same we put in", (int) first, 2);
         assertFalse(deque.isEmpty());
         deque.addLast(3);
-
         assertEquals("removed element should be 3", (int) deque.removeLast(), 3);
         assertEquals("removed element should be 1", (int) deque.removeLast(), 1);
+        assertTrue(deque.isEmpty());
+
+        deque.addLast(1);
+        deque.addLast(2);
+        assertEquals("removed element should be 3", (int) deque.removeFirst(), 1);
+        assertEquals("removed element should be 1", (int) deque.removeFirst(), 2);
         assertTrue(deque.isEmpty());
     }
 
@@ -64,6 +69,18 @@ public class DequeTest {
         Deque<Integer> deque = new Deque<Integer>();
         Iterator<Integer> iter = deque.iterator();
         iter.next();
+    }
+
+    @Test
+    public void iterateTest() throws Exception {
+        Deque<Integer> deque = new Deque<Integer>();
+        deque.addFirst(1);
+        deque.addFirst(2);
+        Iterator<Integer> iter = deque.iterator();
+        assertTrue(iter.hasNext());
+        assertEquals((int) iter.next(), 2);
+        assertEquals((int) iter.next(), 1);
+        assertFalse(iter.hasNext());
     }
 
     @Test
