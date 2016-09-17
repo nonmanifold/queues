@@ -23,14 +23,14 @@ public class DequeTest {
         assertEquals("removed element should be the same we put in", (int) first, 2);
         assertFalse(deque.isEmpty());
         deque.addLast(3);
-        assertEquals("removed element should be 3", (int) deque.removeLast(), 3);
-        assertEquals("removed element should be 1", (int) deque.removeLast(), 1);
+        assertEquals((int) deque.removeLast(), 3);
+        assertEquals((int) deque.removeLast(), 1);
         assertTrue(deque.isEmpty());
 
         deque.addLast(1);
         deque.addLast(2);
-        assertEquals("removed element should be 3", (int) deque.removeFirst(), 1);
-        assertEquals("removed element should be 1", (int) deque.removeFirst(), 2);
+        assertEquals((int) deque.removeFirst(), 1);
+        assertEquals((int) deque.removeFirst(), 2);
         assertTrue(deque.isEmpty());
     }
 

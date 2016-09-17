@@ -71,7 +71,7 @@ public class Deque<Item> implements Iterable<Item> {
         size--;
         if (isEmpty()) {
             last = null;
-        }else{
+        } else {
             first.next = null;
         }
         return item;
@@ -87,7 +87,7 @@ public class Deque<Item> implements Iterable<Item> {
         size--;
         if (isEmpty()) {
             first = null;
-        }else{
+        } else {
             last.next = null;
         }
         return item;
@@ -95,18 +95,19 @@ public class Deque<Item> implements Iterable<Item> {
 
     // return an iterator over items in order from front to end
     public Iterator<Item> iterator() {
-        return new DequeIterator<Item>();
+        return new DequeIterator();
     }
 
     // unit testing
     public static void main(String[] args) {
     }
 
-    private class DequeIterator<Item> implements Iterator<Item> {
+    private class DequeIterator implements Iterator<Item> {
+        private Node current = first;
 
         @Override
         public boolean hasNext() {
-            return isEmpty();
+            return current != null;
         }
 
         @Override
@@ -114,7 +115,9 @@ public class Deque<Item> implements Iterable<Item> {
             if (isEmpty()) {
                 throw new NoSuchElementException();
             }
-            return null;
+            Item item = current.item;
+            current = current.next;
+            return item;
         }
 
         @Override
