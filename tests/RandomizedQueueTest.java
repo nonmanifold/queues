@@ -37,12 +37,12 @@ public class RandomizedQueueTest {
         }
 
         ArrayList<Integer> items1 = new ArrayList<Integer>();
-        for (Integer item: queue) {
+        for (Integer item : queue) {
             items1.add(item);
         }
 
         ArrayList<Integer> items2 = new ArrayList<Integer>();
-        for (Integer item: queue) {
+        for (Integer item : queue) {
             items2.add(item);
         }
 
@@ -68,6 +68,17 @@ public class RandomizedQueueTest {
         thrown.expect(NoSuchElementException.class);
         RandomizedQueue<Integer> queue = new RandomizedQueue<Integer>();
         queue.sample();
+    }
+
+    @Test
+    public void samplingShouldNotChangeSize() throws Exception {
+        RandomizedQueue<Integer> queue = new RandomizedQueue<Integer>();
+        queue.enqueue(2);
+        assertFalse(queue.isEmpty());
+        assertEquals((int) queue.sample(), 2);
+        assertEquals((int) queue.sample(), 2);
+        assertEquals((int) queue.sample(), 2);
+        assertFalse(queue.isEmpty());
     }
 
     @Test
