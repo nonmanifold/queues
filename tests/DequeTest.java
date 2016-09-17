@@ -65,4 +65,14 @@ public class DequeTest {
         Iterator<Integer> iter = deque.iterator();
         iter.next();
     }
+
+    @Test
+    public void size() {
+        Deque<Integer> deque = new Deque<Integer>();
+        assertEquals(deque.size(), 0);
+        deque.addFirst(1);
+        assertEquals(deque.size(), 1);
+        deque.addLast(2);
+        assertEquals(deque.size(), 2);
+    }
 }
