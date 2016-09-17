@@ -23,8 +23,9 @@ public class RandomizedQueueTest {
         queue.enqueue(1);
         queue.enqueue(2);
         assertFalse(queue.isEmpty());
-        queue.dequeue();
-        queue.dequeue();
+        int first = queue.dequeue();
+        int second = queue.dequeue();
+        assertTrue(first != second);
         assertTrue(queue.isEmpty());
     }
 
