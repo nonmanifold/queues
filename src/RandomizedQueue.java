@@ -39,7 +39,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             capacity = 1;
         }
         Object[] copy = new Object[capacity];
-        System.arraycopy(items, 0, copy, 0, items.length);
+        int numItemsToCopy = items.length;
+        if (capacity < numItemsToCopy) {
+            numItemsToCopy = capacity;
+        }
+        System.arraycopy(items, 0, copy, 0, numItemsToCopy);
         items = copy;
     }
 
@@ -69,7 +73,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
         int idx = StdRandom.uniform(size);
         @SuppressWarnings("unchecked")
-        Item item=(Item) items[idx];
+        Item item = (Item) items[idx];
         return item;
     }
 

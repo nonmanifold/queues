@@ -54,15 +54,26 @@ public class RandomizedQueueTest {
     public void SampleShouldNotReturnNulls() throws Exception {
         RandomizedQueue<Integer> queue = new RandomizedQueue<Integer>();
 
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 10000; i++) {
             queue.enqueue(i);
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10000; i++) {
             queue.dequeue();
             Integer sampled = queue.sample();
             assertTrue(sampled != null);
             queue.enqueue(i);
+        }
+
+        for (int i = 0; i < 1000; i++) {
+            for (int j = 0; j < 900; j++) {
+                queue.dequeue();
+            }
+            Integer sampled = queue.sample();
+            assertTrue(sampled != null);
+            for (int j = 0; j < 900; j++) {
+                queue.enqueue(i);
+            }
         }
     }
 
