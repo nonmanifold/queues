@@ -48,6 +48,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         Item item = items.get(idx);
         items.set(idx, items.get(0)); // fill caused gap
         size--;
+        if (size > 0 && size < items.size() / 4) {
+            resize(items.size() / 2);
+        }
         return item;
     }
 
